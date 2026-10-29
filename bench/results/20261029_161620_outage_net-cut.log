@@ -1,0 +1,13 @@
+16:16:46 === net-cut (180 s) ; proxy: HEALTHY DCP_AGENT_DATA_PATH_HEALTHY ; connecteur: RUNNING
+16:16:47 lien Internet de l'agent coupé
+16:16:48 1000 commandes insérées pendant la coupure (order_id > 1401300)
+16:17:37 coupure +1s ; proxy: HEALTHY DCP_AGENT_DATA_PATH_HEALTHY ; connecteur: RUNNING ; visibles: 0/1000
+16:18:52 coupure +70s ; proxy: DEGRADED DCP_AGENT_DATA_PATH_FAILED ; connecteur: RUNNING ; visibles: 0/1000
+16:20:01 coupure +145s ; proxy: DEGRADED DCP_AGENT_DATA_PATH_FAILED ; connecteur: RUNNING ; visibles: 0/1000
+16:20:22 lien rétabli
+16:21:05 reprise +29s ; proxy: DOWN DCP_AGENT_DATA_PATH_FAILED ; connecteur: RUNNING ; visibles: 0/1000
+16:21:46 proxy HEALTHY après 84s
+16:21:59 reprise +84s ; proxy: HEALTHY DCP_AGENT_DATA_PATH_HEALTHY ; connecteur: RUNNING ; visibles: 0/1000
+16:22:55 reprise +140s ; proxy: HEALTHY DCP_AGENT_DATA_PATH_HEALTHY ; connecteur: RUNNING ; visibles: 1000/1000
+16:22:55 toutes les lignes visibles 140s après le rétablissement
+16:23:10 === fin ; doublons éventuels : 0

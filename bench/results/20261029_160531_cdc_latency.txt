@@ -1,0 +1,3 @@
+16:05:33 100 commandes insérées (order_id > 1000200)
+16:05:51 t=19s visibles=0/100
+16:06:14 t=42s visibles=100/100

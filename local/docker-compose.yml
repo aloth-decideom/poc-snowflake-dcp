@@ -1,0 +1,70 @@
+# Environnement local du POC : une base Postgres, une API REST et l'agent DCP.
+# Aucun port n'est ouvert vers l'extérieur : Snowflake atteint pg.dcp.lab et api.dcp.lab
+# uniquement par la connexion sortante de l'agent. Les ports publiés sur 127.0.0.1 servent
+# aux mesures de référence en accès direct depuis le poste.
+name: dcp-lab
+
+services:
+  postgres:
+    image: postgres:17.6
+    # Réplication logique pour le connecteur Openflow PostgreSQL CDC
+    command: ["postgres", "-c", "wal_level=logical", "-c", "max_replication_slots=4", "-c", "max_wal_senders=4"]
+    environment:
+      POSTGRES_DB: fournil
+      POSTGRES_USER: fournil_admin
+      POSTGRES_PASSWORD_FILE: /run/secrets/pg_admin_password
+    secrets: [pg_admin_password, pg_reader_password, pg_repl_password]
+    volumes:
+      - ./postgres/initdb:/docker-entrypoint-initdb.d:ro
+      - pgdata:/var/lib/postgresql/data
+    ports: ["127.0.0.1:5432:5432"]
+    networks:
+      lab:
+        aliases: [pg.dcp.lab, pg.localtest.me]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -h 127.0.0.1 -U fournil_admin -d fournil"]
+      interval: 5s
+      retries: 30
+
+  api:
+    build: ./api
+    environment:
+      PG_HOST: pg.dcp.lab
+      PG_DB: fournil
+      PG_USER: dcp_reader
+      PG_PASSWORD_FILE: /run/secrets/pg_reader_password
+    secrets: [pg_reader_password]
+    ports: ["127.0.0.1:8000:8000"]
+    depends_on:
+      postgres: {condition: service_healthy}
+    networks:
+      lab:
+        aliases: [api.dcp.lab, api.localtest.me]
+
+  dcp-agent:
+    image: snowflakedb/dcp-client:2026.10.23.1
+    restart: unless-stopped
+    # Arrêt propre : l'agent attend la fin des tunnels actifs (drain) avant de s'arrêter
+    stop_grace_period: 300s
+    environment:
+      DCP_METRICS_PORT: "9092"
+      DCP_LOG_LEVEL: info
+    volumes:
+      - ../secrets/dcp-bootstrap-token:/etc/dcp-agent/secrets/dcp-bootstrap-token:ro
+    ports: ["127.0.0.1:9092:9092"]
+    networks: [lab]
+    profiles: [agent]   # démarré à part (make agent-up) : il faut d'abord le token
+
+networks:
+  lab: {}
+
+volumes:
+  pgdata: {}
+
+secrets:
+  pg_admin_password:
+    file: ../secrets/pg_admin_password
+  pg_reader_password:
+    file: ../secrets/pg_reader_password
+  pg_repl_password:
+    file: ../secrets/pg_repl_password

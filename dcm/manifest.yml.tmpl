@@ -1,0 +1,41 @@
+manifest_version: 2
+
+type: DCM_PROJECT
+
+#---------------------------------------------
+# POC Data Connectivity Proxy : un seul compte, une seule target.
+# manifest.yml est généré depuis ce modèle par `make manifest` (valeurs lues dans .env, non versionné) :
+# l'identifiant du compte n'apparaît jamais dans le repo public.
+# Le projet DCM (objet Snowflake) vit dans PLATFORM_ADMIN.DCM, créé par bootstrap/00_bootstrap.sql
+#---------------------------------------------
+
+default_target: POC
+
+targets:
+  POC:
+    account_identifier: {{ACCOUNT_ID}}       # SELECT CURRENT_ORGANIZATION_NAME() || '-' || CURRENT_ACCOUNT_NAME();
+    project_name: PLATFORM_ADMIN.DCM.DCP_POC
+    project_owner: DCM_ADMIN
+    templating_config: POC
+
+#---------------------------------------------
+# Variables Jinja : defaults < configurations.POC < -D en ligne de commande
+#---------------------------------------------
+
+templating:
+  defaults:
+    project_owner_role: DCM_ADMIN
+    database: DCP_POC
+    # RAW : données copiées depuis la base locale ; APPS : secrets, procédures et fonctions Python
+    schemas: [RAW, APPS]
+    warehouse: WH_DCP
+    wh_size: "X-SMALL"
+    auto_suspend: 60
+    data_retention_days: 1
+    # Rôle de test : crée et appelle les fonctions qui passent par DCP
+    tester_role: DCP_TESTER
+    users: [{{USER}}]
+
+  configurations:
+    POC:
+      env: POC

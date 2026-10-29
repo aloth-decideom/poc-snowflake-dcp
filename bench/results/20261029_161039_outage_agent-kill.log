@@ -1,0 +1,12 @@
+16:11:04 === agent-kill (120 s) ; proxy: HEALTHY DCP_AGENT_DATA_PATH_HEALTHY ; connecteur: RUNNING
+16:11:05 agent tué (SIGKILL)
+16:11:06 1000 commandes insérées pendant la coupure (order_id > 1400300)
+16:11:58 coupure +1s ; proxy: HEALTHY DCP_AGENT_DATA_PATH_HEALTHY ; connecteur: RUNNING ; visibles: 0/1000
+16:13:04 coupure +73s ; proxy: DOWN DCP_AGENT_DATA_PATH_HEALTHY ; connecteur: RUNNING ; visibles: 0/1000
+16:13:24 agent redémarré
+16:14:04 reprise +27s ; proxy: DOWN DCP_AGENT_DATA_PATH_HEALTHY ; connecteur: RUNNING ; visibles: 0/1000
+16:14:37 proxy HEALTHY après 73s
+16:14:51 reprise +73s ; proxy: HEALTHY DCP_AGENT_DATA_PATH_HEALTHY ; connecteur: RUNNING ; visibles: 0/1000
+16:15:53 reprise +131s ; proxy: HEALTHY DCP_AGENT_DATA_PATH_HEALTHY ; connecteur: RUNNING ; visibles: 1000/1000
+16:15:53 toutes les lignes visibles 131s après le rétablissement
+16:16:10 === fin ; doublons éventuels : 0

@@ -1,0 +1,13 @@
+# Repo public : rien de propre au compte ni aucun secret
+.env
+secrets/
+dcm/manifest.yml
+out/
+dcm/out/
+*.p8
+*.pub
+*.jar
+*token*
+__pycache__/
+.venv/
+**/.DS_Store
