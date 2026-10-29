@@ -4,6 +4,11 @@ Snowflake peut-il joindre une base Postgres et une API REST **locales**, sans au
 **procédures et fonctions Python**, grâce à [Data Connectivity Proxy](https://docs.snowflake.com/en/user-guide/data-connectivity-proxy) ?
 Ce repo contient le banc de test et l'article qui en rend compte (`article/`).
 
+📝 **Article sur Medium** : [Snowflake Data Connectivity Proxy : j'ai branché ma base locale à Snowflake sans ouvrir un seul port](https://medium.com/@aurelien.loth_87219/snowflake-data-connectivity-proxy-jai-branch%C3%A9-ma-base-locale-%C3%A0-snowflake-sans-ouvrir-un-seul-351277bdb04d)
+
+En bref : DCP fonctionne avec **Openflow** (CDC PostgreSQL et flux vers une API REST, sans perte lors des coupures),
+mais **pas** depuis les procédures et fonctions Python, dont le trafic ne passe pas par le tunnel.
+
 Toutes les données sont **fictives** (générées en SQL, graine fixe). Aucun identifiant de compte ni secret n'est versionné :
 ils sont dans `.env` et `secrets/`, tous deux ignorés par git.
 
