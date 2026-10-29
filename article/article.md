@@ -1,6 +1,6 @@
 # Snowflake Data Connectivity Proxy : j'ai branché ma base locale à Snowflake sans ouvrir un seul port
 
-*Brouillon, rédigé au fil du POC. Toutes les données sont fictives ; le code est sur GitHub (lien à venir).*
+*Brouillon, rédigé au fil du POC. Toutes les données sont fictives ; le code est sur GitHub : https://github.com/aloth-decideom/poc-snowflake-dcp.*
 
 ## Le problème : faire venir Snowflake chez soi
 
@@ -230,4 +230,4 @@ La moins bonne : **le connecteur reste RUNNING pendant toute la coupure**, sans 
 
 Pour un premier cas d'usage « CDC d'une base on-premise sans ouvrir le pare-feu », c'est probablement aujourd'hui la solution la plus simple de l'écosystème Snowflake.
 
-*Le code complet du banc de test (DCM, Docker Compose, scripts de mesure et de coupure) est sur GitHub : lien à venir.*
+*Le code complet du banc de test (DCM, Docker Compose, scripts de mesure et de coupure) est sur GitHub : https://github.com/aloth-decideom/poc-snowflake-dcp*
